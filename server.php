@@ -16,7 +16,7 @@ $dbname = "attendance";
 
 // $db = mysqli_connect('localhost', 'root', '', 'registration');
 $conn = mysqli_init();
-mysqli_ssl_set($conn,NULL,NULL,"C:\Users\Yashvi\Downloads\DigiCertGlobalRootCA.crt.pem",NULL,NULL);
+mysqli_ssl_set($conn,NULL,NULL,"DigiCertGlobalRootCA.crt.pem",NULL,NULL);
 mysqli_real_connect($conn, "yashvisql.mysql.database.azure.com", "yashvidhar", $pass, $dbname, 3306, MYSQLI_CLIENT_SSL);
 
 // if($conn){
@@ -66,13 +66,43 @@ if (isset($_POST['reg_user'])) {
 
   
   if (count($errors) == 0) {
-  	// $password = md5($password_1);
+  	$password = $password_1;
+    
   	$query = "INSERT INTO teacher_database (name, username, email, subject, password) 
   			  VALUES('$name', '$username', '$email', '$subject', '$password')";
   	mysqli_query($conn, $query);
   	$_SESSION['username'] = $username;
   	$_SESSION['success'] = "You are now logged in";
   	header('location: index1.php');
+  }
+}
+
+if(isset($_POST['att_user'])){
+  $date = date('d/m/Y');
+  $username=$_SESSION['username'];
+  // $db = mysqli_connect('localhost', 'root', '');
+  // mysqli_select_db($db,'registration'); 
+
+
+
+// $db = mysqli_connect('localhost', 'root', '', 'registration')
+
+  $sql = "SELECT subject FROM teacher_database WHERE (username = '$username')";
+  $retval = mysqli_query($conn , $sql );
+  $sqlq = "SELECT id FROM teacher_database WHERE (username = '$username')";
+  $id_t = mysqli_query($conn , $sqlq );
+  if(! $retval )
+  {
+      die('Could not get data: ' . mysqli_error());
+   }
+  $c = mysqli_real_escape_string($conn, $_POST['at']);
+  if (empty($c)) {
+  	array_push($errors, "Choose an option");
+  }
+  if (count($errors) == 0) {
+    $query = "INSERT INTO teacher_att (username, date, attendance) 
+            VALUES('$username', '$date', '$c');";
+            mysqli_query($conn, $query);
   }
 }
 
@@ -89,7 +119,7 @@ if (isset($_POST['login_user'])) {
   }
 
   if (count($errors) == 0) {
-  	// $password = md5($password);
+  	$password = $password;
   	$query = "SELECT * FROM teacher_database WHERE username='$username' AND password='$password'";
   	$results = mysqli_query($conn, $query);
   	if (mysqli_num_rows($results) == 1) {

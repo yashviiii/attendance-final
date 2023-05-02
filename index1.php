@@ -1,3 +1,4 @@
+<?php include('server.php') ?>
 <?php 
   session_start(); 
 
@@ -125,61 +126,19 @@
     
         
     <?php endif ?>
-    <?php
-        
-        $date = date('d/m/Y');
-        // $db = mysqli_connect('localhost', 'root', '');
-        // mysqli_select_db($db,'registration'); 
-        $pass = "Myf@mily621";
-$dbname = "attendance";
- 
 
-
-// $db = mysqli_connect('localhost', 'root', '', 'registration');
-$db = mysqli_init();
-mysqli_ssl_set($db,NULL,NULL,"C:\Users\Yashvi\Downloads\DigiCertGlobalRootCA.crt.pem",NULL,NULL);
-mysqli_real_connect($db, "yashvisql.mysql.database.azure.com", "yashvidhar", $pass, $dbname, 3306, MYSQLI_CLIENT_SSL);
-
-        $sql = "SELECT subject FROM teacher_database WHERE (username = '$username')";
-        $retval = mysqli_query($db , $sql );
-        $sqlq = "SELECT id FROM teacher_database WHERE (username = '$username')";
-        $id_t = mysqli_query($db , $sql );
-        if(! $retval )
-        {
-            die('Could not get data: ' . mysqli_error());
-         }
-         
-                        
-//    echo"<td height='50' >";
-$c=1;  
-            echo"<form method='post'  class='input-group' action='index1.php'>";
-            echo "<label class='container'>
-                    <input type='radio' name = '$c' value='P' >
+  	
+        <form method='post'  class='input-group' action='index1.php'>
+        <?php include('errors.php'); ?>
+            <label class='container'>
+                    <input type='radio' name = 'at' value='P' >
                             PRESENT
                          <span class='checkmark'></span>
-                  </label>" ;
-            echo "<label class='container' >
-                    <input type='radio' name = '$c' value='A'  >
+            </label>
+            <label class='container' >
+                    <input type='radio' name = 'at' value='A'  >
                                 ABSENT
                          <span class='checkmark'></span>
-                  </label>" ;
-            if (isset($_POST[$c])) {
-                $attnd=$_POST[$c];
-
-                // $query = "INSERT INTO teacher_att (id, username, date, attendance) 
-            // VALUES('$id_t', '$username', '$date', '$c')";
-            // mysqli_query($db, $query);
-
-            //     $query = "INSERT INTO teacher_att (id, username, date, attendance) 
-            // VALUES('$id_t', '$username', '$date', '$attnd')";
-            // mysqli_query($db,$query);
-
-    //         $query = "INSERT INTO teacher_att (id, username, date, attendance) 
-  	// 		  VALUES('$id_t', '$username', '$date', '$c')";
-  	// mysqli_query($conn, $query);
-                
-            }
-     echo"<button type='submit' style='margin-top: 30px ' class='btn' >Submit</button> ";
-
-              echo"</form>";
-    ?>
+            </label>   
+            <button type='submit' style='margin-top: 30px ' class='btn' name="att_user">Submit</button>
+        </form>

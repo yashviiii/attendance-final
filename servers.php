@@ -15,7 +15,7 @@ $dbname = "attendance";
 
 
 $db = mysqli_init();
-mysqli_ssl_set($db,NULL,NULL,"C:\Users\Yashvi\Downloads\DigiCertGlobalRootCA.crt.pem",NULL,NULL);
+mysqli_ssl_set($db,NULL,NULL,"DigiCertGlobalRootCA.crt.pem",NULL,NULL);
 mysqli_real_connect($db, "yashvisql.mysql.database.azure.com", "yashvidhar", $pass, $dbname, 3306, MYSQLI_CLIENT_SSL);
 // connect to the database
 // $db = mysqli_connect('localhost', 'root', '', 'registration');
