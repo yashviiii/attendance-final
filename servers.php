@@ -66,7 +66,7 @@ if (isset($_POST['reg_user'])) {
 
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) {
-  	// $password = md5($password_1);//encrypt the password before saving in the database
+  	$password = $password_1;//encrypt the password before saving in the database
 
         // $add1 = "INSERT INTO `cbnst` (`subject`, `id`, `name`, `feedback`, `report`) VALUES ('cbnst', '$id', '$name', '', '');";
         // mysqli_query($db, $add1);
@@ -90,6 +90,36 @@ if (isset($_POST['reg_user'])) {
   	header('location: index2.php');
   }
 }
+
+if(isset($_POST['att_user'])){
+  $date = date('d/m/Y');
+  $username=$_SESSION['username'];
+  // $db = mysqli_connect('localhost', 'root', '');
+  // mysqli_select_db($db,'registration'); 
+
+
+
+// $db = mysqli_connect('localhost', 'root', '', 'registration')
+
+  $sql = "SELECT rollno FROM student_database WHERE (username = '$username')";
+  $retval = mysqli_query($db , $sql );
+  $sqlq = "SELECT id FROM student_database WHERE (username = '$username')";
+  $id_t = mysqli_query($db , $sqlq );
+  if(! $retval )
+  {
+      die('Could not get data: ' . mysqli_error());
+   }
+  $c = mysqli_real_escape_string($db, $_POST['at']);
+  if (empty($c)) {
+  	array_push($errors, "Choose an option");
+  }
+  if (count($errors) == 0) {
+    $query = "INSERT INTO student_att (username, date, attendance) 
+            VALUES('$username', '$date', '$c');";
+            mysqli_query($db, $query);
+  }
+}
+
 
 // LOGIN USER
 if (isset($_POST['login_user'])) {

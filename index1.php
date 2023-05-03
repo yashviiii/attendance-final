@@ -1,6 +1,5 @@
 <?php include('server.php') ?>
 <?php 
-  session_start(); 
 
   if (!isset($_SESSION['username'])) {
   	$_SESSION['msg'] = "You must log in first";
@@ -123,6 +122,7 @@
     <?php  if (isset($_SESSION['username'])) :
         $username=$_SESSION['username']; ?>
     	<p>Welcome <strong><?php echo "$username"; ?></strong></p>
+        <p style='margin-top: 20px '> <a href="index1.php?logout='1'" style="color: red;">logout</a> </p>
     
         
     <?php endif ?>

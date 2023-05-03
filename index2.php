@@ -1,5 +1,5 @@
-<?php 
-  session_start(); 
+<?php include('servers.php') ?>
+<?php  
 
   if (!isset($_SESSION['username'])) {
   	$_SESSION['msg'] = "You must log in first";
@@ -99,7 +99,7 @@
 
 
 <div class="header">
-	<h2>Home Page</h2>
+	<h2>Attendance</h2>
 </div>
 <div class="content">
   	<!-- notification message -->
@@ -122,197 +122,18 @@
         <p style='margin-top: 20px '> <a href="index2.php?logout='1'" style="color: red;">logout</a> </p>
     	
     <?php endif ?>
-        <?php
-        $date = date('d/m/Y');
-        $password = "Myf@mily621";
-        $dbname = "attendance";
-        $db = mysqli_init();
-        mysqli_ssl_set($db,NULL,NULL,"C:\Users\Yashvi\Downloads\DigiCertGlobalRootCA.crt.pem",NULL,NULL);
-        mysqli_real_connect($db, "yashvisql.mysql.database.azure.com", "yashvidhar", $password, $dbname, 3306, MYSQLI_CLIENT_SSL);
-        // mysqli_select_db($db,'registration'); 
-        $sql = "SELECT name FROM student_database WHERE (username = '$username')";
-        $retval = mysqli_query($db , $sql );
-        if(! $retval )
-        {
-            die('Could not get data: ' . mysqli_error());
-         }
-         
-                        
-        while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
-            $name=$row['name'];
-        //echo "name :$name<br> " ;
-   }
-        ?>
-        </div>
-        
-                    <table width='100%' border='0' cellpadding='0' cellspacing='0' class="data-table">
-                        <tbody>
-                            <tr>
-                                <th  class='data-table'> Subjects/Date </th>
-                                <th  class='data-table'>CBNST </th>
-                                <th  class='data-table'>Automata</th>
-                                <th  class='data-table'>Microprocessors</th>
-                                <th  class='data-table'>Computer Organization</th>
-                                <th  class='data-table'>Java</th>
-                                <th  class='data-table'>Cloud Computing</th>
-                            </tr>
-                        
-                       
-                 
-         
-        <?php
-        $password = "Myf@mily621";
-        $dbname = "attendance";
-        
-        
-        $db = mysqli_init();
-        mysqli_ssl_set($db,NULL,NULL,"C:\Users\Yashvi\Downloads\DigiCertGlobalRootCA.crt.pem",NULL,NULL);
-        mysqli_real_connect($db, "yashvisql.mysql.database.azure.com", "yashvidhar", $password, $dbname, 3306, MYSQLI_CLIENT_SSL);
-       
-        // Start date
-	//$date = '2009-12-06';
-	// End date
-        $date1='01/05/2018';
-         $date='01/05/2018';
-	$end_date = '12/05/2018';
-        //$date1 = date('d/m/Y');  
-        $i=0;
-        for($i=1;$i<=$end_date;$i++)
-	 {  
-            
-                if($date1!=$end_date+1)
-                {
-                
-                echo"<tr>";
-                echo"<td>";
-                echo "$date1\n";
-                echo"<td>";
-                $sql = "SELECT `$date1` FROM `cbnst` WHERE (name = '$name')" ;
-                $retval = mysqli_query($db , $sql );
-                if(! $retval )
-                {
-                    die('Could not get data: ' . mysqli_error());
-                }
-         
-                        
-                 while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) 
-                 {
-                    $attn=$row[$date1];
-                    echo "$attn " ;
-                 }
 
-                echo"</td>";
-                echo"<td>";
-                $sql = "SELECT `$date1` FROM `automata` WHERE (name = '$name')" ;
-                $retval = mysqli_query($db , $sql );
-                if(! $retval )
-                {
-                    die('Could not get data: ' . mysqli_error());
-                }
-         
-                        
-                 while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) 
-                 {
-                    $attn=$row[$date1];
-                    echo "$attn " ;
-                 }
-
-                
-                echo"</td>";
-                echo"<td>";
-                $sql = "SELECT `$date1` FROM `micro` WHERE (name = '$name')" ;
-                $retval = mysqli_query($db , $sql );
-                if(! $retval )
-                {
-                    die('Could not get data: ' . mysqli_error());
-                }
-         
-                        
-                 while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) 
-                 {
-                    $attn=$row[$date1];
-                    echo "$attn " ;
-                 }
-
-                echo"</td>";
-                echo"<td>";
-                
-                $sql = "SELECT `$date1` FROM `co` WHERE (name = '$name')" ;
-                $retval = mysqli_query($db , $sql );
-                if(! $retval )
-                {
-                    die('Could not get data: ' . mysqli_error());
-                }
-         
-                        
-                 while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) 
-                 {
-                    $attn=$row[$date1];
-                    echo "$attn " ;
-                 }
-
-                echo"</td>";
-                echo"<td>";
-                $sql = "SELECT `$date1` FROM `java` WHERE (name = '$name')" ;
-                $retval = mysqli_query($db , $sql );
-                if(! $retval )
-                {
-                    die('Could not get data: ' . mysqli_error());
-                }
-         
-                        
-                 while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) 
-                 {
-                    $attn=$row[$date1];
-                    echo "$attn " ;
-                 }
-
-                echo"</td>";
-                echo"<td>";
-                $sql = "SELECT `$date1` FROM `cc` WHERE (name = '$name')" ;
-                $retval = mysqli_query($db , $sql );
-                if(! $retval )
-                {
-                    die('Could not get data: ' . mysqli_error());
-                }
-         
-                        
-                 while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) 
-                 {
-                    $attn=$row[$date1];
-                    echo "$attn " ;
-                 }
-
-                echo"</td>";
-                
-                echo"</td>";
-                echo"</tr>";
-
-                
-                }
-               // $date1=date('d/m/Y',strtotime("+$i days"));
-               // $j=$i+1;
-               // $date1="0$j/05/2018";
-              // $date= date('d/m/Y',strtotime("+1 day", strtotime("28/02/2018")));
-                //echo" $date1";
-                //$date = date('d/m/Y',strtotime("+1 day",strtotime("28/02/2018"));
-              //  echo date("d/m/Y", $date);
-                //$date1=date('d/m/Y',strtotime("+$i days"));
-                //$date = "04-15-2013";
-                //$date2 = str_replace('-', '/', $date);
-                $date1 = date('m/d/Y',strtotime($date . "+$i months"));
-
-                //echo $date1;
-	}
-        
-      
-
-       
-        ?>
-
-        </table>
-    
-    
-	
-</body>
-</html>
+<form method='post'  class='input-group' action='index2.php'>
+        <?php include('errors.php'); ?>
+            <label class='container'>
+                    <input type='radio' name = 'at' value='P' >
+                            PRESENT
+                         <span class='checkmark'></span>
+            </label>
+            <label class='container' >
+                    <input type='radio' name = 'at' value='A'  >
+                                ABSENT
+                         <span class='checkmark'></span>
+            </label>   
+            <button type='submit' style='margin-top: 30px ' class='btn' name="att_user">Submit</button>
+        </form>
