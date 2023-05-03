@@ -123,7 +123,6 @@
         $username=$_SESSION['username']; ?>
     	<p>Welcome <strong><?php echo "$username"; ?></strong></p>
         <p style='margin-top: 20px '> <a href="index1.php?logout='1'" style="color: red;">logout</a> </p>
-    
         
     <?php endif ?>
 
@@ -141,4 +140,5 @@
                          <span class='checkmark'></span>
             </label>   
             <button type='submit' style='margin-top: 30px ' class='btn' name="att_user">Submit</button>
+            <button type="button" class="btn" onclick="window.location.href='capture.php'">Take picture</button>
         </form>
